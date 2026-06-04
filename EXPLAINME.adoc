@@ -1,0 +1,137 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+// SPDX-FileCopyrightText: 2024-2026 Jonathan D.A. Jewell (hyperpolymath)
+= CafeScripto - Face Repository
+:toc:
+:icons: font
+
+CafeScripto is a **face** (syntax surface) for link:https://github.com/hyperpolymath/affinescript[AffineScript].
+This document explains the repository structure and key concepts for CoffeeScript developers.
+
+== What is a "Face"?
+
+A face is a sugared surface syntax that lets developers approach AffineScript semantics
+through a familiar programming style. CafeScripto provides CoffeeScript-style syntax,
+but all faces compile to the same canonical AST and produce identical typed-wasm output.
+
+Key principle: *Different faces, same cube.*
+
+== Repository Structure
+
+[cols="1,2"]
+|===
+|Path |Purpose
+
+|`bin/cafe` |CLI shim that forwards to `affinescript --face cafe`
+|`examples/` |CafeScripto examples showing face-specific syntax
+|`docs/` |CafeScripto-focused documentation
+|`tests/` |Face transformer regression tests
+|`justfile` |Common tasks: `check`, `run`, `build`, `preview`, `lint`
+|`.github/` |GitHub workflows and issue templates
+|===
+
+== Key Concepts for CoffeeScript Developers
+
+[cols="1,2"]
+|===
+|CafeScripto |What it means in AffineScript
+
+|`->` |Arrow function (lowers to `fn`)
+|`=>` |Arrow function with return (lowers to `fn`)
+|`(params) -> ...` |Function literal (lowers to `fn(params) -> ...`)
+|`@` shorthand |`this` binding (lowers to explicit parameter)
+|`do -> ...` |Block function (lowers to `fn() -> ...`)
+|`(x) -> x * x` |Lambda (lowers to `fn(x) -> x * x`)
+|`if cond then ...` |Conditional (lowers to `if cond { ... }`)
+|`unless cond` |Negated conditional (lowers to `if !cond { ... }`)
+|`until cond` |Negated loop (lowers to `while !cond { ... }`)
+|`yes` / `no` |Boolean literals (lowers to `true` / `false`)
+|`on` / `off` |Boolean literals (lowers to `true` / `false`)
+|`and` / `or` |Boolean operators (lowers to `&&` / `||`)
+|`not` |Negation (lowers to `!`)
+|`is` / `isnt` |Equality (lowers to `==` / `!=`)
+|`of` |Type test (lowers to type check)
+|`in` |Membership (lowers to `.contains()` or similar)
+|`..` |Range (lowers to range constructor)
+|`...` |Splat/spread (not yet fully supported)
+|`[x for x in list]` |List comprehension (not yet fully supported)
+|`{key: val}` |Object/record literal (lowers to record syntax)
+|`class C` |Type declaration (lowers to `type`)
+|`extends` |Not applicable - AffineScript has no OOP inheritance
+|`# face: cafe` |Pragma declaring this file uses CafeScripto syntax
+|`### comment ###` |Block comment (lowers to `//` line comments)
+|`# comment` |Line comment (preserved as-is)
+|===
+
+== Terminology Differences
+
+[cols="1,2"]
+|===
+|CoffeeScript term |AffineScript equivalent / Explanation
+
+|`->` |`fn` - Function declaration
+|`=>` |`->` - Function return annotation
+|`@` |Explicit parameter - CoffeeScript's `@` for `this` becomes an explicit first parameter
+|`do` |Block - Used for multi-line function bodies, lowers to `{ }`
+|`then` |Not applicable - Conditional body doesn't need `then` keyword
+|`else` |Same - Works as in most languages
+|`switch` |`match` - Pattern matching (more powerful than switch)
+|`when` |`match` case - Pattern matching alternative
+|`yes` |`true` - Boolean true
+|`no` |`false` - Boolean false
+|`on` |`true` - Boolean true (alternative)
+|`off` |`false` - Boolean false (alternative)
+|`null` |Not applicable - CoffeeScript has `null`, but AffineScript uses `()` (unit)
+|`undefined` |`()` - Unit value, absence of a meaningful value
+|`this` |Explicit parameter - AffineScript has no implicit `this`; it becomes a named parameter
+|`super` |Not applicable - AffineScript has no class inheritance
+|`class` |`type` - AffineScript uses algebraic data types, not classes
+|`prototype` |Not applicable - AffineScript has no prototypal inheritance
+|`new` |Not applicable - AffineScript has no constructors
+|`instanceof` |Not applicable - AffineScript uses type checks differently
+|`typeof` |Not applicable - AffineScript types are known at compile time
+|`delete` |Not applicable - AffineScript has linear types; values can't be arbitrarily deleted
+|`void` |`()` - Unit type
+|`typeof` |Not applicable - AffineScript is statically typed
+|`try`/`catch` |Not applicable - AffineScript uses `Result` types and effect system
+|`throw` |Not applicable - AffineScript has no exceptions
+|`debugger` |Not applicable - Debugging is different in AffineScript
+|`export` |Not applicable - AffineScript modules are always exported
+|`import` |`use` - Module import
+|`from` / `require` |`use` - Module import
+|`default` export |Not applicable - AffineScript has explicit exports
+|`...` splat |Not yet supported - Will map to appropriate collection operations
+|`[a...b]` |Not yet supported - Range syntax
+|`{a,b}` destructuring |Not yet supported - Will map to pattern matching
+|`"""` multiline string |Not yet supported - Use concatenated strings
+|`'''` multiline string |Not yet supported - Use concatenated strings
+|===
+
+IMPORTANT: CoffeeScript is dynamically typed and uses prototypal inheritance,
+while AffineScript is statically typed with algebraic data types. The face
+transformer maps CoffeeScript's syntax to AffineScript's type-safe world.
+
+TIP: CafeScripto's `@` shorthand for `this` is particularly tricky. In CoffeeScript,
+`@method()` means `this.method()`. In AffineScript, this becomes an explicit
+parameter, typically named `self` or `this`: `fn(this, method) -> this.method()`
+
+TIP: CoffeeScript's existential operator `?` (safe navigation) is not directly
+supported in AffineScript. Use `Option` types and explicit checks instead.
+
+== Getting Help
+
+* Language questions: https://github.com/hyperpolymath/affinescript[affinescript repo]
+* CafeScripto-specific questions: https://github.com/hyperpolymath/cafescripto[This repo]
+* "How do I express X in AffineScript?": Check the canonical examples in affinescript/examples/
+
+== See Also
+
+* link:README.adoc[README] - Main documentation
+* link:https://github.com/hyperpolymath/affinescript[AffineScript] - Core compiler
+* link:https://github.com/hyperpolymath/affinescript/blob/main/examples/faces/README.adoc[Faces comparison]
+
+== License
+
+This project is licensed under the Mozilla Public License, v. 2.0. See the `LICENSE` file for details.
+
+SPDX-License-Identifier: MPL-2.0

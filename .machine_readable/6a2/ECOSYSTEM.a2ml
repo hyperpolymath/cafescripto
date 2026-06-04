@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: MPL-2.0
+# Cafescripto Ecosystem Definition
+
+[ecosystem]
+name = "AffineScript Cafescripto"
+id = "affinescript-cafescripto"
+description = "cafescripto-style syntax face for AffineScript providing familiar syntax for cafescripto developers"
+homepage = "https://github.com/hyperpolymath/cafescripto"
+
+[capabilities]
+supports = ["syntax-transform", "cli-shim", "examples", "documentation"]
+requires = ["affinescript"]
+
+[integration]
+face-name = "cafescripto"
+cli-binary = "cafe"
+pragma-string = "// face: cafescripto"
+
+[status]
+maturity = "alpha"
+maintenance = "active"
