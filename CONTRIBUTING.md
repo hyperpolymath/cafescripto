@@ -1,4 +1,7 @@
-<!-- SPDX-License-Identifier: AGPL-3.0-or-later -->
+<!--
+SPDX-License-Identifier: MPL-2.0
+Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+-->
 <!-- SPDX-FileCopyrightText: 2024-2026 Jonathan D.A. Jewell (hyperpolymath) -->
 
 # Contributing to CafeScripto
@@ -32,7 +35,7 @@ just preview examples/hello.affine
 
 ## Pull requests
 
-* SPDX header on every new file (`AGPL-3.0-or-later`).
+* SPDX header on every new file (`MPL-2.0`).
 * Run `just hello` and any other examples added before opening the PR.
 * If you're touching the face transformer, open the PR against
   [affinescript](https://github.com/hyperpolymath/affinescript), not here.
