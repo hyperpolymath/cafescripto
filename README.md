@@ -1,0 +1,158 @@
+<!--
+SPDX-License-Identifier: CC-BY-SA-4.0
+SPDX-FileCopyrightText: 2025-2026 Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+-->
+
+[![License: MPL-2.0](https://img.shields.io/badge/License-MPL_2.0-blue.svg)](https://opensource.org/licenses/MPL-2.0)
+
+CoffeeScript-syntax AffineScript. Write code that looks like
+CoffeeScript — significant whitespace, `→`/`⇒` arrows, `@` for self,
+`unless`/`until`, postfix conditionals, `Yes`/`No`/`On`/`Off` — and get
+affine resource guarantees and typed-wasm output.
+
+# What it is
+
+CafeScripto is
+[AffineScript](https://github.com/hyperpolymath/affinescript) with its
+`cafe` face pre-selected. If you wrote CoffeeScript, you already know
+the surface: `(args)` `→` `body` and `⇒` `body` arrows, `@x` shorthand
+for self, `unless` and `until`, postfix `if` / `unless`,
+`Yes`/`No`/`On`/`Off` literal aliases, `#` line comments, `###` block
+comments, and significant indentation. The compiler checks that your
+resources (files, sockets, tokens, handles) are used **exactly as many
+times as you declare** — and proves it at compile time. No null pointer
+exceptions. No use-after-free. No silent data races. No GC overhead.
+
+This repo is a **brand surface only**. The compiler, type checker,
+borrow checker, and codegen all live in
+[affinescript](https://github.com/hyperpolymath/affinescript). This repo
+carries:
+
+- Examples idiomatic to CoffeeScript developers
+
+- Documentation aimed at the CoffeeScript community
+
+- A `cafe` shim CLI that aliases `affinescript` `--face` `cafe`
+
+- Tutorial and migration guides for moving CoffeeScript-shaped code into
+  a strongly-typed, affine-typed, WASM-targeting world
+
+# Hello
+
+`examples/hello.affine`:
+
+```affine
+# face: cafescripto
+
+effect IO {
+  fn println(s: String) -> ();
+}
+
+fn main() -{IO}-> () {
+  let greeting = "Hello, CafeScripto!";
+  let ready = Yes;
+  println(greeting);
+}
+```
+
+`→`/`⇒` arrows, `@` for self, `unless`/`until`, postfix `if`,
+`Yes`/`No`/`On`/`Off` — all lower to canonical AffineScript and produce
+the same typed-wasm output as every other face.
+
+# Install
+
+```bash
+opam install affinescript
+git clone https://github.com/hyperpolymath/cafescripto
+cd cafescripto
+```
+
+The `affinescript` binary does the work. The `bin/cafe` shim in this
+repo just defaults the `--face` flag.
+
+# Use
+
+```bash
+# Direct, via affinescript:
+affinescript eval --face cafe examples/hello.affine
+affinescript compile --face cafe examples/hello.affine -o hello.wasm
+
+# Or via the cafe shim (same thing):
+./bin/cafe eval examples/hello.affine
+./bin/cafe compile examples/hello.affine -o hello.wasm
+
+# Or via the justfile:
+just run examples/hello.affine
+just preview examples/hello.affine    # show the canonical lowering
+```
+
+Source files use the canonical `.affine` extension. The face is selected
+by the `#` `face:` `cafescripto` pragma on the first comment line, or by
+the `--face` `cafe` flag.
+
+# Different faces, same cube
+
+CafeScripto is one of six established faces over the AffineScript core:
+
+- AffineScript — the canonical face
+
+- [RattleScript](https://github.com/hyperpolymath/rattlescript) —
+  Python-style
+
+- [JaffaScript](https://github.com/hyperpolymath/jaffascript) —
+  JavaScript / TypeScript-style
+
+- [LucidScript](https://github.com/hyperpolymath/lucidscript) —
+  PureScript / Haskell-style
+
+- **CafeScripto** — CoffeeScript-style (this repo)
+
+- [PseudoScript](https://github.com/hyperpolymath/pseudoscript) —
+  pseudocode-style
+
+All six share the canonical `.affine` extension and lower to the same
+AST. Errors are reported in face-appropriate vocabulary.
+
+# Why CafeScripto
+
+CoffeeScript gave a generation of developers a coherent syntax
+aesthetic: significant whitespace, `→`/`⇒` arrows, `@` for self,
+`unless`, postfix conditionals, and the `Yes`/`No`/`On`/`Off` literals.
+That community never loved JavaScript, and when the ecosystem moved on
+to TypeScript and vanilla JS they were forced off the syntax they
+preferred. CafeScripto is a home for them — the same surface aesthetics,
+but resting on a sound type system, affine resource semantics, effect
+tracking, and portable typed-wasm output rather than untyped JavaScript.
+
+For a CoffeeScript developer moving in, the path looks like:
+
+1.  Keep your `→` / `⇒` arrows, `@` shorthand, `unless` / `until`, and
+    postfix conditionals — the face accepts them and lowers them to
+    canonical AffineScript.
+
+2.  Add `#` `face:` `cafescripto` at the top of each `.affine` file.
+
+3.  Type-annotate your function signatures (CoffeeScript had none;
+    AffineScript wants them, but they buy you the whole-program
+    guarantees).
+
+4.  Keep writing `Yes`/`No`/`On`/`Off` — the face maps them to canonical
+    boolean literals.
+
+5.  Compile to typed-wasm; the output runs in browsers, Node, Deno,
+    Wasmtime, and any WASI runtime.
+
+# Status
+
+Alpha. The face transformer is implemented in
+`affinescript/lib/cafe_face.ml`. Known limitations are tracked in [the
+affinescript faces
+README](https://github.com/hyperpolymath/affinescript/blob/main/examples/faces/README.adoc)
+under "Known transformer gaps".
+
+# License
+
+This project is licensed under the Mozilla Public License, v. 2.0. See
+the `LICENSE` file for details. Documentation is licensed CC-BY-SA-4.0.
+
+SPDX-License-Identifier: CC-BY-SA-4.0
