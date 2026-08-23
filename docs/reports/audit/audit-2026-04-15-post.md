@@ -15,7 +15,7 @@ Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 
 ## Findings Summary
 - 14 TODO/FIXME/HACK markers in .machine_readable/contractiles/self-validating/template-hunt.k9.ncl
-- flake.nix declares inputs without narHash, rev pinning, or sibling flake.lock — dependency revision is unpinned in flake.nix
+- flake.guix declares inputs without narHash, rev pinning, or sibling flake.lock — dependency revision is unpinned in flake.guix
 - Hardcoded /tmp/ path without mktemp in tests/e2e.sh
 - 14 TODO/FIXME/HACK markers in affinescript/contractiles/self-validating/template-hunt.k9.ncl
 - DOM manipulation (innerHTML/document.write) in affinescript/tools/affine-doc/assets/search.js
