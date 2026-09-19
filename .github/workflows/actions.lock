@@ -5,14 +5,14 @@ version: 'v0.0.2'
 workflows:
     '.github/workflows/codeql.yml':
         - 'actions/checkout@v7.0.1'
-        - 'github/codeql-action@v4.37.7'
+        - 'github/codeql-action@v4.38.0'
     '.github/workflows/governance.yml': []
     '.github/workflows/hypatia-scan.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/github-script@v9.0.0'
         - 'actions/upload-artifact@v7.0.1'
         - 'erlef/setup-beam@v1.24.1'
-        - 'github/codeql-action@v4.37.7'
+        - 'github/codeql-action@v4.38.0'
     '.github/workflows/label-triage.yml': []
     '.github/workflows/labels.yml': []
     '.github/workflows/mirror.yml':
@@ -21,24 +21,24 @@ workflows:
         - 'webfactory/ssh-agent@v0.10.0'
     '.github/workflows/pages.yml':
         - 'actions/checkout@v7.0.1'
-        - 'actions/deploy-pages@v5.0.0'
+        - 'actions/deploy-pages@v5.0.1'
         - 'actions/upload-pages-artifact@v5.0.0'
     '.github/workflows/push-email-notify.yml':
-        - 'hyperpolymath/smtp-notify-action@v0.2.0'
+        - 'hyperpolymath/smtp-notify-action@v0.3.0'
     '.github/workflows/scorecard.yml': []
     '.github/workflows/secret-scanner.yml':
         - 'actions/checkout@v7.0.1'
         - 'gitleaks/gitleaks-action@v3.0.0'
-        - 'trufflesecurity/trufflehog@v3.97.0'
+        - 'trufflesecurity/trufflehog@v3.97.5'
 dependencies:
     'actions/checkout@v7.0.1':
         ref: 'v7.0.1'
         commit: 'sha1-3d3c42e5aac5ba805825da76410c181273ba90b1'
         owner_id: 44036562
         repo_id: 197814629
-    'actions/deploy-pages@v5.0.0':
-        ref: 'v5.0.0'
-        commit: 'sha1-cd2ce8fcbc39b97be8ca5fce6e763baed58fa128'
+    'actions/deploy-pages@v5.0.1':
+        ref: 'v5.0.1'
+        commit: 'sha1-368f82528645a54fb793d4d04e342629a3f51346'
         owner_id: 44036562
         repo_id: 438112499
     'actions/github-script@v9.0.0':
@@ -73,9 +73,9 @@ dependencies:
         commit: 'sha1-54075bcc5e249e4758d363f27d099f55d843f124'
         owner_id: 47606891
         repo_id: 331103973
-    'github/codeql-action@v4.37.7':
-        ref: 'v4.37.7'
-        commit: 'sha1-ff2f1c621b7f889edc0d3c761ac2e6a3f8cdb0dd'
+    'github/codeql-action@v4.38.0':
+        ref: 'v4.38.0'
+        commit: 'sha1-b96794f015dfd88f77b49b1c93e0fa7110f94c63'
         owner_id: 9919
         repo_id: 259445878
     'gitleaks/gitleaks-action@v3.0.0':
@@ -83,14 +83,14 @@ dependencies:
         commit: 'sha1-e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e'
         owner_id: 90395851
         repo_id: 242854909
-    'hyperpolymath/smtp-notify-action@v0.2.0':
-        ref: 'v0.2.0'
-        commit: 'sha1-ede1191ef6ff3ac02c4f4d9efdf837ee517e11d7'
+    'hyperpolymath/smtp-notify-action@v0.3.0':
+        ref: 'v0.3.0'
+        commit: 'sha1-22e7bdb322c430c1d0dac6b3bb307f4bb139d0be'
         owner_id: 6759885
         repo_id: 1352485172
-    'trufflesecurity/trufflehog@v3.97.0':
-        ref: 'v3.97.0'
-        commit: 'sha1-bcfcf73aaf4759d4dadc2783177c245a02792318'
+    'trufflesecurity/trufflehog@v3.97.5':
+        ref: 'v3.97.5'
+        commit: 'sha1-f714bf454f350590f4a24c3ddb1aef02c35bf5b6'
         owner_id: 79229934
         repo_id: 77726177
     'webfactory/ssh-agent@v0.10.0':
