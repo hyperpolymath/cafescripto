@@ -24,7 +24,7 @@
 # Rust: transmute (unless FFI with // SAFETY: comment)
 
 # BANNED LANGUAGES
-# TypeScript -> ReScript
+# TypeScript -> AffineScript
 # Node.js / npm -> Bun (tier 1); Deno is a permitted fallback
 # Go -> Rust
 # Python -> Julia or Rust

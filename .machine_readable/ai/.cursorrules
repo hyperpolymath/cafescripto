@@ -23,7 +23,7 @@
 # Rust: transmute (unless FFI with // SAFETY: comment)
 
 # BANNED LANGUAGES
-# TypeScript -> use ReScript
+# TypeScript -> use AffineScript
 # Node.js / npm -> use Bun (tier 1); Deno is a permitted fallback
 # Go -> use Rust
 # Python -> use Julia or Rust
